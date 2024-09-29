@@ -1,0 +1,13 @@
+ExpandedTooltips: {
+	MeleeSpeedHeader: - Melee Speed -
+	RangedSpeedHeader: - Ranged Speed -
+	MeleeNoSpeedSpeedHeader: - Melee (No Speed) Speed -
+	MagicSpeedHeader: - Magic Speed -
+	SummonMeleeSpeedHeader: - Whip Speed -
+	ThrowingSpeedHeader: - Throwing Speed -
+	GenericSpeedHeader: - Generic Speed -
+	SummonSpeedHeader: - Summon Speed -
+	RogueSpeedHeader: - Rogue Speed -
+	StatusTemplate: Current use time: [usetime]. Current attack speed buff: [buff]
+	ThresholdTemplate: Previous threshold: [prev]. Next threshold: [next]
+}

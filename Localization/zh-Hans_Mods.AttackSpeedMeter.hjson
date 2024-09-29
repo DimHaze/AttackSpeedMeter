@@ -1,0 +1,13 @@
+ExpandedTooltips: {
+	MeleeSpeedHeader: - 近战攻速 -
+	RangedSpeedHeader: - 远程攻速 -
+	MeleeNoSpeedSpeedHeader: - 非攻速近战攻速 -
+	MagicSpeedHeader: - 魔法攻速 -
+	SummonMeleeSpeedHeader: - 鞭子攻速 -
+	ThrowingSpeedHeader: - 投掷攻速 -
+	GenericSpeedHeader: - 全局攻速 -
+	SummonSpeedHeader: - 召唤攻速 -
+	RogueSpeedHeader: - 盗贼攻速 -
+	StatusTemplate: 当前使用时间: [usetime]， 当前攻速加成: [buff]
+	ThresholdTemplate: 上一攻速阈值: [prev]， 下一攻速阈值: [next]
+}

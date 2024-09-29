@@ -1,0 +1,3 @@
+displayName = Attack Speed Meter
+author = Aesc
+version = 0.1
