@@ -62,19 +62,21 @@ namespace AttackSpeedMeter.Content
                 Player player = Main.player[Main.myPlayer];
 
                 float speedMult = CombinedHooks.TotalUseSpeedMultiplier(player, item);
+                float attackSpeed = player.GetAttackSpeed(item.DamageType);
+                float miscSpeedMult = speedMult / attackSpeed;
                 float usetimeMult = PlayerLoader.UseTimeMultiplier(player, item) * ItemLoader.UseTimeMultiplier(item, player);
                 int totalUsetime = CombinedHooks.TotalUseTime(useTime, player, item);
                 float usetimeBuff = CombinedHooks.TotalUseTimeMultiplier(player, item);
 
-                var prevThreshold = ThresholdHelper.Threshold(useTime, totalUsetime, speedMult, usetimeMult);
-                var nextThreshold = ThresholdHelper.Threshold(useTime, totalUsetime - 1, speedMult, usetimeMult);
+                var prevThreshold = ThresholdHelper.Threshold(useTime, totalUsetime + 1, miscSpeedMult, usetimeMult);
+                var nextThreshold = ThresholdHelper.Threshold(useTime, totalUsetime, miscSpeedMult, usetimeMult);
 
                 if (!supportedDamageClasses.ContainsKey(damageClass)){
                     damageClass = DamageClass.Generic;
                 }
                 tooltips.Add(GetTooltipHeader(damageClass));
-                tooltips.Add(GetStatus(totalUsetime, 1f/usetimeBuff));
-                tooltips.Add(GetThresholds(prevThreshold+1, nextThreshold+1));
+                tooltips.Add(GetStatus(totalUsetime, attackSpeed-1));
+                tooltips.Add(GetThresholds(prevThreshold-1, nextThreshold-1));
             }
             base.ModifyTooltips(item, tooltips);
         }
