@@ -8,6 +8,13 @@ ExpandedTooltips: {
 	GenericSpeedHeader: - Generic Speed -
 	SummonSpeedHeader: - Summon Speed -
 	RogueSpeedHeader: - Rogue Speed -
+	TrueMeleeSpeedHeader: - True Melee Speed -
+	TrueMeleeNoSpeedSpeedHeader: - True Melee (No Speed) Speed -
+	MeleeRangedHybridSpeedHeader: - Melee - Ranged Hybrid Speed -
+	AverageSpeedHeader: - Typeless Speed -
+	HealerSpeedHeader: - 我哪知道 -
+	HealerToolSpeedHeader: - 明天找找瑟银汉化作者 -
+	BardDamageSpeedHeader: - 救一下啊 -
 	StatusTemplate: Current use time: [usetime]. Current attack speed buff: [buff]
 	ThresholdTemplate: Previous threshold: [prev]. Next threshold: [next]
 }
