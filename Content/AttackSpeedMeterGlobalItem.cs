@@ -50,8 +50,8 @@ namespace AttackSpeedMeter.Content
         private TooltipLine GetThresholds(float prev, float next) =>
             new TooltipLine(base.Mod, "AttackSpeedMeter.Thresholds",
                 Language.GetTextValue("Mods.AttackSpeedMeter.ExpandedTooltips.ThresholdTemplate")
-                    .Replace("[prev]", FormatHelper.PercentageCeil(prev))
-                    .Replace("[next]", FormatHelper.PercentageCeil(next))
+                    .Replace("[prev]", prev.ToString()+"%")
+                    .Replace("[next]", next.ToString() + "%")
                 );
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
@@ -66,15 +66,15 @@ namespace AttackSpeedMeter.Content
                 int totalUsetime = CombinedHooks.TotalUseTime(useTime, player, item);
                 float usetimeBuff = CombinedHooks.TotalUseTimeMultiplier(player, item);
 
-                var prevThreshold = ThresholdHelper.Threshold(useTime, totalUsetime, speedMult, usetimeMult);
-                var nextThreshold = ThresholdHelper.Threshold(useTime, totalUsetime - 1, speedMult, usetimeMult);
+                var prevThreshold = ThresholdHelper.Threshold(useTime, totalUsetime+1);
+                var nextThreshold = ThresholdHelper.Threshold(useTime, totalUsetime);
 
                 if (!supportedDamageClasses.ContainsKey(damageClass)){
                     damageClass = DamageClass.Generic;
                 }
                 tooltips.Add(GetTooltipHeader(damageClass));
                 tooltips.Add(GetStatus(totalUsetime, 1f/usetimeBuff));
-                tooltips.Add(GetThresholds(prevThreshold+1, nextThreshold+1));
+                tooltips.Add(GetThresholds(prevThreshold, nextThreshold));
             }
             base.ModifyTooltips(item, tooltips);
         }
