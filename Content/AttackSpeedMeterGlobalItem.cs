@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using AttackSpeedMeter.Helpers;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AttackSpeedMeter.Content
 {
@@ -97,37 +98,66 @@ namespace AttackSpeedMeter.Content
             new TooltipLine(base.Mod, "AttackSpeedMeter.Status",
                 Language.GetTextValue("Mods.AttackSpeedMeter.ExpandedTooltips.StatusTemplate")
                     .Replace("[usetime]",usetime.ToString())
-                    .Replace("[buff]", FormatHelper.PercentageFloor(buff))
+                    .Replace("[buff]", FormatHelper.PercentageFloor(buff-1))
                 );
         private TooltipLine GetThresholds(float prev, float next) =>
             new TooltipLine(base.Mod, "AttackSpeedMeter.Thresholds",
                 Language.GetTextValue("Mods.AttackSpeedMeter.ExpandedTooltips.ThresholdTemplate")
-                    .Replace("[prev]", prev.ToString()+"%")
-                    .Replace("[next]", next.ToString() + "%")
+                    .Replace("[prev]", (prev - 100).ToString() + "%")
+                    .Replace("[next]", (next - 100).ToString() + "%")
+                );
+        private TooltipLine GetItemMultiplier(float mult) =>
+            new TooltipLine(base.Mod, "AttackSpeedMeter.ItemMultiplier",
+                Language.GetTextValue("Mods.AttackSpeedMeter.ExpandedTooltips.ItemMultiplierTemplate")
+                    .Replace("[mult]", FormatHelper.PercentageFloor(mult))
+                );
+        private TooltipLine GetPlayerMultiplier(float mult) =>
+            new TooltipLine(base.Mod, "AttackSpeedMeter.ItemMultiplier",
+                Language.GetTextValue("Mods.AttackSpeedMeter.ExpandedTooltips.PlayerMultiplierTemplate")
+                    .Replace("[mult]", FormatHelper.PercentageFloor(mult))
+                );
+        private TooltipLine GetWarn() =>
+            new TooltipLine(base.Mod, "AttackSpeedMeter.ItemMultiplier",
+                Language.GetTextValue("Mods.AttackSpeedMeter.ExpandedTooltips.UseAnimationWarn")
                 );
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (item.damage >= 0 && item.useTime>0)
+            if (item.damage >= 0 && item.useTime > 0)
             {
                 DamageClass damageClass = item.DamageType;
                 var useTime = item.useTime;
                 Player player = Main.player[Main.myPlayer];
 
-                float speedMult = CombinedHooks.TotalUseSpeedMultiplier(player, item);
-                float attackSpeed = player.GetAttackSpeed(item.DamageType);
-                float miscSpeedMult = speedMult / attackSpeed;
-                float usetimeMult = PlayerLoader.UseTimeMultiplier(player, item) * ItemLoader.UseTimeMultiplier(item, player);
                 int totalUsetime = CombinedHooks.TotalUseTime(useTime, player, item);
                 float usetimeBuff = CombinedHooks.TotalUseTimeMultiplier(player, item);
-                var prevThreshold = ThresholdHelper.Threshold(useTime, totalUsetime+1);
+                var prevThreshold = ThresholdHelper.Threshold(useTime, totalUsetime + 1);
                 var nextThreshold = ThresholdHelper.Threshold(useTime, totalUsetime);
-
+                float itemMult = ItemLoader.UseTimeMultiplier(item, player) * 
+                                 ItemID.Sets.BonusAttackSpeedMultiplier[item.type];
+                float playerMult = PlayerLoader.UseTimeMultiplier(player, item);
+                if (!item.attackSpeedOnlyAffectsWeaponAnimation)
+                {
+                    itemMult /= ItemLoader.UseSpeedMultiplier(item, player);
+                    playerMult /= PlayerLoader.UseSpeedMultiplier(player, item);
+                }
                 if (!supportedDamageClasses.ContainsKey(damageClass)){
                     damageClass = DamageClass.Generic;
                 }
                 tooltips.Add(GetTooltipHeader(damageClass));
                 tooltips.Add(GetStatus(totalUsetime, 1f/usetimeBuff));
                 tooltips.Add(GetThresholds(prevThreshold, nextThreshold));
+                if(Math.Abs(itemMult - 1)>=1e-6f)
+                {
+                    tooltips.Add(GetItemMultiplier(itemMult));
+                }
+                if (Math.Abs(playerMult - 1) >= 1e-6f)
+                {
+                    tooltips.Add(GetPlayerMultiplier(playerMult));
+                }
+                if (useTime != item.useAnimation)
+                {
+                    tooltips.Add(GetWarn());
+                }
 
             }
             base.ModifyTooltips(item, tooltips);
