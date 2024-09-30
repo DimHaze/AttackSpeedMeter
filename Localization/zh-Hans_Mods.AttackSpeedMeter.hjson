@@ -8,6 +8,13 @@ ExpandedTooltips: {
 	GenericSpeedHeader: - 全局攻速 -
 	SummonSpeedHeader: - 召唤攻速 -
 	RogueSpeedHeader: - 盗贼攻速 -
+	TrueMeleeSpeedHeader: - 真近战攻速 -
+	TrueMeleeNoSpeedSpeedHeader: - 非攻速真近战攻速 -
+	MeleeRangedHybridSpeedHeader: - 近战-远程混合攻速 -
+	AverageSpeedHeader: - 无职业攻速 -
+	HealerSpeedHeader: - 光辉攻速 -
+	HealerToolSpeedHeader: - 治疗速度 -
+	BardDamageSpeedHeader: - 演奏速度 -
 	StatusTemplate: 当前使用时间: [usetime]， 当前攻速加成: [buff]
 	ThresholdTemplate: 上一攻速阈值: [prev]， 下一攻速阈值: [next]
 }
