@@ -106,6 +106,11 @@ namespace AttackSpeedMeter.Content
                     .Replace("[prev]", (prev - 100).ToString() + "%")
                     .Replace("[next]", (next - 100).ToString() + "%")
                 );
+        private TooltipLine GetMaxThresholds(float prev) =>
+            new TooltipLine(base.Mod, "AttackSpeedMeter.Thresholds",
+                Language.GetTextValue("Mods.AttackSpeedMeter.ExpandedTooltips.MaxThresholdTemplate")
+                    .Replace("[prev]", (prev - 100).ToString() + "%")
+                );
         private TooltipLine GetItemMultiplier(float mult) =>
             new TooltipLine(base.Mod, "AttackSpeedMeter.ItemMultiplier",
                 Language.GetTextValue("Mods.AttackSpeedMeter.ExpandedTooltips.ItemMultiplierTemplate")
@@ -122,12 +127,12 @@ namespace AttackSpeedMeter.Content
                 );
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (item.damage >= 0 && item.useTime > 0)
+            if (item.damage >= 0 && item.useTime > 0 && !(item.ammo>0))
             {
                 DamageClass damageClass = item.DamageType;
                 var useTime = item.useTime;
                 Player player = Main.player[Main.myPlayer];
-
+                // Stats
                 int totalUsetime = CombinedHooks.TotalUseTime(useTime, player, item);
                 float usetimeBuff = CombinedHooks.TotalUseTimeMultiplier(player, item);
                 var prevThreshold = ThresholdHelper.Threshold(useTime, totalUsetime + 1);
@@ -143,9 +148,17 @@ namespace AttackSpeedMeter.Content
                 if (!supportedDamageClasses.ContainsKey(damageClass)){
                     damageClass = DamageClass.Generic;
                 }
+                // add tooltips
                 tooltips.Add(GetTooltipHeader(damageClass));
                 tooltips.Add(GetStatus(totalUsetime, 1f/usetimeBuff));
-                tooltips.Add(GetThresholds(prevThreshold, nextThreshold));
+                if(totalUsetime == 1)
+                {
+                    tooltips.Add(GetMaxThresholds(prevThreshold));
+                }
+                else
+                {
+                    tooltips.Add(GetThresholds(prevThreshold, nextThreshold));
+                }
                 if(Math.Abs(itemMult - 1)>=1e-6f)
                 {
                     tooltips.Add(GetItemMultiplier(itemMult));

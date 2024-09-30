@@ -17,6 +17,7 @@ ExpandedTooltips: {
 	BardDamageSpeedHeader: - 演奏速度 -
 	StatusTemplate: 当前使用时间: [usetime]， 当前攻速加成: [buff]
 	ThresholdTemplate: 上一攻速阈值: [prev]， 下一攻速阈值: [next]
+	MaxThresholdTemplate: 上一攻速阈值: [prev]， 已经达到最大攻速！
 	ItemMultiplierTemplate: 该物品内置攻速倍率为：[mult]
 	PlayerMultiplierTemplate: 玩家额外攻速倍率为：[mult]
 	UseAnimationWarn: 该物品使用时间和使用动画不等，请查阅wiki！

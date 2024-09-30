@@ -17,6 +17,7 @@ ExpandedTooltips: {
 	BardDamageSpeedHeader: - Bard Damage Speed -
 	StatusTemplate: Current use time: [usetime]. Current attack speed buff: [buff]
 	ThresholdTemplate: Previous threshold: [prev]. Next threshold: [next]
+	MaxThresholdTemplate: Previous threshold: [prev]. Minimum use time now!
 	ItemMultiplierTemplate: Item attack speed multiplier:[mult]
 	PlayerMultiplierTemplate: Player extra attack speed multiplier: [mult]
 	UseAnimationWarn: UseTime not equal to UseAnimation, check wiki for more!
