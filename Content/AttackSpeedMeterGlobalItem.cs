@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using AttackSpeedMeter.Helpers;
+using AttackSpeedMeter.ModSystems;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace AttackSpeedMeter.Content
@@ -16,83 +17,14 @@ namespace AttackSpeedMeter.Content
     public class AttackSpeedMeterGlobalItem : GlobalItem
     {
 # nullable enable
-        private static DamageClass? RogueDamageClass = null;
-        private static DamageClass? TrueMeleeDamageClass = null;
-        private static DamageClass? TrueMeleeNoSpeedDamageClass = null;
-        private static DamageClass? MeleeRangedHybridDamageClass = null;
-        private static DamageClass? AverageDamageClass = null;
-        private static DamageClass? HealerDamage = null;
-        private static DamageClass? HealerTool = null;
-        private static DamageClass? BardDamage = null;
         AttackSpeedMeterGlobalItem()
         {
-            if (Terraria.ModLoader.ModLoader.TryGetMod("CalamityMod", out var cal))
-            {
-                // Rogue
-                if (cal.TryFind<DamageClass>("RogueDamageClass", out RogueDamageClass))
-                {
-                    supportedDamageClasses[RogueDamageClass] = "Rogue";
-                }
-
-                // True Melee
-                if (cal.TryFind<DamageClass>("TrueMeleeDamageClass", out TrueMeleeDamageClass))
-                {
-                    supportedDamageClasses[TrueMeleeDamageClass] = "TrueMelee";
-                }
-
-                // True Melee no Speed
-                if (cal.TryFind<DamageClass>("TrueMeleeNoSpeedDamageClass", out TrueMeleeNoSpeedDamageClass))
-                {
-                    supportedDamageClasses[TrueMeleeNoSpeedDamageClass] = "TrueMeleeNoSpeed";
-                }
-
-                // Melee Ranged Hybrid
-                if (cal.TryFind<DamageClass>("MeleeRangedHybridDamageClass", out MeleeRangedHybridDamageClass))
-                {
-                    supportedDamageClasses[MeleeRangedHybridDamageClass] = "MeleeRangedHybrid";
-                }
-
-                // Average
-                if (cal.TryFind<DamageClass>("AverageDamageClass", out AverageDamageClass))
-                {
-                    supportedDamageClasses[AverageDamageClass] = "Average";
-                }
-            }
-            if (Terraria.ModLoader.ModLoader.TryGetMod("ThoriumMod", out var thorium))
-            {
-                // Healer
-                if (thorium.TryFind<DamageClass>("HealerDamage", out HealerDamage))
-                {
-                    supportedDamageClasses[HealerDamage] = "Healer";
-                }
-
-                // Healer Healing
-                if (thorium.TryFind<DamageClass>("HealerTool", out HealerTool))
-                {
-                    supportedDamageClasses[HealerTool] = "HealerTool";
-                }
-
-                // Bard
-                if (thorium.TryFind<DamageClass>("BardDamage", out BardDamage))
-                {
-                    supportedDamageClasses[BardDamage] = "Bard";
-                }
-            }
+            
         }
-        private static Dictionary<DamageClass, String> supportedDamageClasses = new Dictionary<DamageClass, string> {
-            {DamageClass.Melee , "Melee"},
-            {DamageClass.Ranged , "Ranged"},
-            {DamageClass.MeleeNoSpeed, "MeleeNoSpeed"},
-            {DamageClass.Magic, "Magic"},
-            {DamageClass.SummonMeleeSpeed, "SummonMeleeSpeed"},
-            {DamageClass.Throwing, "Throwing"},
-            {DamageClass.Summon, "Summon"},
-            {DamageClass.Generic, "Generic"}
-        };
         private TooltipLine GetTooltipHeader(DamageClass damageClass) =>
             new TooltipLine(base.Mod, "AttackSpeedMeter.Header",
                 Language.GetTextValue("Mods.AttackSpeedMeter.ExpandedTooltips."
-                    + supportedDamageClasses[damageClass] +"SpeedHeader")
+                    + ModContent.GetInstance<DamageClasses>()[damageClass] +"SpeedHeader")
                 );
         private TooltipLine GetStatus(int usetime, float buff) => 
             new TooltipLine(base.Mod, "AttackSpeedMeter.Status",
@@ -133,24 +65,23 @@ namespace AttackSpeedMeter.Content
                 var useTime = item.useTime;
                 Player player = Main.player[Main.myPlayer];
                 // Stats
-                int totalUsetime = CombinedHooks.TotalUseTime(useTime, player, item);
-                float usetimeBuff = CombinedHooks.TotalUseTimeMultiplier(player, item);
-                var prevThreshold = ThresholdHelper.Threshold(useTime, totalUsetime + 1);
-                var nextThreshold = ThresholdHelper.Threshold(useTime, totalUsetime);
-                float itemMult = ItemLoader.UseTimeMultiplier(item, player) * 
-                                 ItemID.Sets.BonusAttackSpeedMultiplier[item.type];
-                float playerMult = PlayerLoader.UseTimeMultiplier(player, item);
-                if (!item.attackSpeedOnlyAffectsWeaponAnimation)
+                if (item.attackSpeedOnlyAffectsWeaponAnimation)
                 {
-                    itemMult /= ItemLoader.UseSpeedMultiplier(item, player);
-                    playerMult /= PlayerLoader.UseSpeedMultiplier(player, item);
+                    tooltips.Add(GetWarn());
+                    return;
                 }
-                if (!supportedDamageClasses.ContainsKey(damageClass)){
-                    damageClass = DamageClass.Generic;
-                }
+                int totalUsetime = CombinedHooks.TotalUseTime(useTime, player, item);
+                float vanillaMult = ItemID.Sets.BonusAttackSpeedMultiplier[item.type];
+                float itemMult = ItemLoader.UseTimeMultiplier(item, player)
+                                 / ItemLoader.UseSpeedMultiplier(item, player);
+                float playerMult = PlayerLoader.UseTimeMultiplier(player, item)
+                                   / PlayerLoader.UseSpeedMultiplier(player, item);
+                var prevThreshold = ThresholdHelper.Threshold(useTime * itemMult * playerMult, totalUsetime + 1,vanillaMult);
+                var nextThreshold = ThresholdHelper.Threshold(useTime * itemMult * playerMult, totalUsetime,vanillaMult);
+                float attackSpeed = player.GetTotalAttackSpeed(damageClass);
                 // add tooltips
                 tooltips.Add(GetTooltipHeader(damageClass));
-                tooltips.Add(GetStatus(totalUsetime, 1f/usetimeBuff));
+                tooltips.Add(GetStatus(totalUsetime, attackSpeed));
                 if(totalUsetime == 1)
                 {
                     tooltips.Add(GetMaxThresholds(prevThreshold));
@@ -163,11 +94,15 @@ namespace AttackSpeedMeter.Content
                 {
                     tooltips.Add(GetItemMultiplier(itemMult));
                 }
+                else if(Math.Abs(vanillaMult - 1) >= 1e-6f)
+                {
+                    tooltips.Add(GetItemMultiplier(vanillaMult));
+                }
                 if (Math.Abs(playerMult - 1) >= 1e-6f)
                 {
                     tooltips.Add(GetPlayerMultiplier(playerMult));
                 }
-                if (useTime != item.useAnimation)
+                if (useTime != item.useAnimation )
                 {
                     tooltips.Add(GetWarn());
                 }
