@@ -1,4 +1,4 @@
-ExpandedTooltips: {
+UITips: {
 	MeleeSpeedHeader: - Melee Speed -
 	RangedSpeedHeader: - Ranged Speed -
 	MeleeNoSpeedSpeedHeader: - Melee (No Speed) Speed -
@@ -15,10 +15,14 @@ ExpandedTooltips: {
 	HealerSpeedHeader: - Healer Speed -
 	HealerToolSpeedHeader: - Healer Tool Speed -
 	BardDamageSpeedHeader: - Bard Damage Speed -
-	StatusTemplate: Current use time: [usetime]. Current attack speed buff: [buff]
-	ThresholdTemplate: Previous threshold: [prev]. Next threshold: [next]
-	MaxThresholdTemplate: Previous threshold: [prev]. Minimum use time now!
+	StatusTemplate: Current use time:[usetime] Attack Speed:[buff]
+	ThresholdTemplate: Previous threshold:[prev] Next threshold:[next]
+	MaxThresholdTemplate: Previous threshold:[prev] Minimum use time now!
 	ItemMultiplierTemplate: Item attack speed multiplier:[mult]
 	PlayerMultiplierTemplate: Player extra attack speed multiplier: [mult]
-	UseAnimationWarn: Unique use animation detected, check wiki for more!
+	UseAnimationWarn: Unique use animation detected!
+	Greetings: Hold or use a weapon to activate the meter.
 }
+
+"Keybinds.Toggle Attack Speed Meter.DisplayName": Toggle  Attack  Speed  Meter
+OtherTips.OnEnterWorld: Bind a key to open/close attack speed meter!

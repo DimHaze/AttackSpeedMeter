@@ -1,6 +1,6 @@
 Mods:{
 	AttackSpeedMeter:{
-		ExpandedTooltips:{
+		UITips:{
 			MeleeSpeedHeader: - 近战攻速 -
 			RangedSpeedHeader: - 远程攻速 -
 			MeleeNoSpeedSpeedHeader: - 非攻速近战攻速 -
