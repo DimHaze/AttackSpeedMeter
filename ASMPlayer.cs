@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameInput;
 using Terraria.ModLoader;
+using AttackSpeedMeter.ModSystems;
 
 namespace AttackSpeedMeter
 {
@@ -14,7 +15,7 @@ namespace AttackSpeedMeter
         {
             if (AttackSpeedMeter.MeterKey.JustPressed)
             {
-                AttackSpeedMeter.UIController.ToggleMeter();
+                ModContent.GetInstance<UISystem>().ToggleMeter();
             }
             base.ProcessTriggers(triggersSet);
         }
