@@ -1,4 +1,4 @@
-ExpandedTooltips: {
+UITips: {
 	MeleeSpeedHeader: - 近战攻速 -
 	RangedSpeedHeader: - 远程攻速 -
 	MeleeNoSpeedSpeedHeader: - 非攻速近战攻速 -
@@ -15,12 +15,14 @@ ExpandedTooltips: {
 	HealerSpeedHeader: - 光辉攻速 -
 	HealerToolSpeedHeader: - 治疗速度 -
 	BardDamageSpeedHeader: - 演奏速度 -
-	StatusTemplate: 当前使用时间: [usetime]， 当前攻速加成: [buff]
-	ThresholdTemplate: 上一攻速阈值: [prev]， 下一攻速阈值: [next]
-	MaxThresholdTemplate: 上一攻速阈值: [prev]， 已经达到最大攻速！
-	ItemMultiplierTemplate: 该物品内置攻速倍率为：[mult]
-	PlayerMultiplierTemplate: 玩家额外攻速倍率为：[mult]
-	UseAnimationWarn: 该物品有特殊使用动画，请查阅wiki！
+	StatusTemplate: 当前使用时间:[usetime] 攻速加成:[buff]
+	ThresholdTemplate: 上一阈值:[prev] 下一攻速阈值:[next]
+	MaxThresholdTemplate: 上一阈值: [prev] 已达到最大攻速！
+	ItemMultiplierTemplate: 该物品内置攻速倍率:[mult]
+	PlayerMultiplierTemplate: 玩家额外攻速倍率:[mult]
+	UseAnimationWarn: 该物品有特殊使用动画！
+	Greetings: 手持或使用武器来激活攻速表！
 }
 
-// "Keybinds.Toggle Attack Speed Meter.DisplayName": Toggle  Attack  Speed  Meter
+"Keybinds.Toggle Attack Speed Meter.DisplayName": 开关攻速显示UI
+OtherTips.OnEnterWorld: 为开关攻速表绑定一个按键！

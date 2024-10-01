@@ -29,6 +29,7 @@ namespace AttackSpeedMeter.ModSystems
         }
         public override void Unload()
         {
+            _MeterInterface = null;
             _MeterUI = null;
             base.Unload();
         }
