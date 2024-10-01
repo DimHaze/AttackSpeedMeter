@@ -20,7 +20,7 @@ ExpandedTooltips: {
 	MaxThresholdTemplate: 上一攻速阈值: [prev]， 已经达到最大攻速！
 	ItemMultiplierTemplate: 该物品内置攻速倍率为：[mult]
 	PlayerMultiplierTemplate: 玩家额外攻速倍率为：[mult]
-	UseAnimationWarn: 该物品使用时间和使用动画不等，请查阅wiki！
+	UseAnimationWarn: 该物品有特殊使用动画，请查阅wiki！
 }
 
 // "Keybinds.Toggle Attack Speed Meter.DisplayName": Toggle  Attack  Speed  Meter

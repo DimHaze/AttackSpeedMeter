@@ -20,7 +20,7 @@ ExpandedTooltips: {
 	MaxThresholdTemplate: Previous threshold: [prev]. Minimum use time now!
 	ItemMultiplierTemplate: Item attack speed multiplier:[mult]
 	PlayerMultiplierTemplate: Player extra attack speed multiplier: [mult]
-	UseAnimationWarn: UseTime not equal to UseAnimation, check wiki for more!
+	UseAnimationWarn: Unique use animation detected, check wiki for more!
 }
 
 "Keybinds.Toggle Attack Speed Meter.DisplayName": Toggle  Attack  Speed  Meter

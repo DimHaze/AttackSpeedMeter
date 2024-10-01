@@ -8,7 +8,12 @@ namespace AttackSpeedMeter.Helpers
 {
     internal class ThresholdHelper
     {
-        public static int Threshold(int usetime, int tgtUsetime_plus_1) =>
-            (int)((float)usetime / (float)tgtUsetime_plus_1 * 100) + 1;
+        public static int Threshold(float usetime, float tgtUsetime_plus_1, float vanillaMult) =>
+            (int)(
+                (
+                    ((usetime / tgtUsetime_plus_1 -1)/vanillaMult) + 1
+                )*100
+            )+1
+            ;
     }
 }
