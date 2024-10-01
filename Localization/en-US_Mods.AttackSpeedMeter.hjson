@@ -22,3 +22,5 @@ ExpandedTooltips: {
 	PlayerMultiplierTemplate: Player extra attack speed multiplier: [mult]
 	UseAnimationWarn: UseTime not equal to UseAnimation, check wiki for more!
 }
+
+"Keybinds.Toggle Attack Speed Meter.DisplayName": Toggle  Attack  Speed  Meter

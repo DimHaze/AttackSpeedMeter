@@ -22,3 +22,5 @@ ExpandedTooltips: {
 	PlayerMultiplierTemplate: 玩家额外攻速倍率为：[mult]
 	UseAnimationWarn: 该物品使用时间和使用动画不等，请查阅wiki！
 }
+
+// "Keybinds.Toggle Attack Speed Meter.DisplayName": Toggle  Attack  Speed  Meter
