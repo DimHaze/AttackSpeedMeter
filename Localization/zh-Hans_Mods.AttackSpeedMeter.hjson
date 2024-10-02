@@ -33,3 +33,24 @@ UITips: {
 
 "Keybinds.Toggle Attack Speed Meter.DisplayName": 开关攻速显示UI
 OtherTips.OnEnterWorld: 为开关攻速表绑定一个按键！
+
+Configs: {
+	ASMConfigs: {
+		DisplayName: 客户端配置
+
+		HPosition: {
+			Label: 水平位置
+			Tooltip: 决定UI显示在屏幕上的水平位置
+		}
+
+		VPosition: {
+			Label: 竖直位置
+			Tooltip: 决定UI显示在屏幕上的竖直位置
+		}
+
+		Width: {
+			Label: 宽度
+			Tooltip: 攻速显示UI的宽度
+		}
+	}
+}
