@@ -1,26 +1,33 @@
 UITips: {
-	MeleeSpeedHeader: - 近战攻速 -
-	RangedSpeedHeader: - 远程攻速 -
-	MeleeNoSpeedSpeedHeader: - 非攻速近战攻速 -
-	MagicSpeedHeader: - 魔法攻速 -
-	SummonMeleeSpeedHeader: - 鞭子攻速 -
-	ThrowingSpeedHeader: - 投掷攻速 -
-	GenericSpeedHeader: - 全局攻速 -
-	SummonSpeedHeader: - 召唤攻速 -
-	RogueSpeedHeader: - 盗贼攻速 -
-	TrueMeleeSpeedHeader: - 真近战攻速 -
-	TrueMeleeNoSpeedSpeedHeader: - 非攻速真近战攻速 -
-	MeleeRangedHybridSpeedHeader: - 近战-远程混合攻速 -
-	AverageSpeedHeader: - 无职业攻速 -
-	HealerSpeedHeader: - 光辉攻速 -
-	HealerToolSpeedHeader: - 治疗速度 -
-	BardDamageSpeedHeader: - 演奏速度 -
-	StatusTemplate: 当前使用时间:[usetime] 攻速加成:[buff]
-	ThresholdTemplate: 上一阈值:[prev] 下一攻速阈值:[next]
-	MaxThresholdTemplate: 上一阈值: [prev] 已达到最大攻速！
-	ItemMultiplierTemplate: 该物品内置攻速倍率:[mult]
-	PlayerMultiplierTemplate: 玩家额外攻速倍率:[mult]
-	UseAnimationWarn: 该物品有特殊使用动画！
+	Headers: {
+		MeleeSpeed: - 近战攻速:[BUFF] -
+		RangedSpeed: - 远程攻速:[BUFF] -
+		MeleeNoSpeedSpeed: - 非攻速近战攻速:[BUFF] -
+		MagicSpeed: - 魔法攻速:[BUFF] -
+		SummonMeleeSpeed: - 鞭子攻速:[BUFF] -
+		ThrowingSpeed: - 投掷攻速:[BUFF] -
+		GenericSpeed: - 全局攻速:[BUFF] -
+		SummonSpeed: - 召唤攻速:[BUFF] -
+		RogueSpeed: - 盗贼攻速:[BUFF] -
+		TrueMeleeSpeed: - 真近战攻速:[BUFF] -
+		TrueMeleeNoSpeedSpeed: - 非攻速真近战攻速:[BUFF] -
+		MeleeRangedHybridSpeed: - 近战-远程混合攻速:[BUFF] -
+		AverageSpeed: - 无职业攻速:[BUFF] -
+		HealerSpeed: - 光辉攻速:[BUFF] -
+		HealerToolSpeed: - 治疗速度:[BUFF] -
+		BardDamageSpeed: - 演奏速度:[BUFF] -
+	}
+
+	UseTime: {
+		StatusTemplate: "[PREV] ← 当前使用时间: [TIME] → [NEXT]"
+		ExtraMultiplierTemplate: 额外倍率:玩家[PLAYER] 物品[ITEM]
+	}
+
+	UseAnimation: {
+		StatusTemplate: "[PREV] ← 当前使用动画: [TIME] → [NEXT]"
+		ExtraMultiplierTemplate: 额外倍率:玩家[PLAYER] 物品[ITEM]
+	}
+
 	Greetings: 手持或使用武器来激活攻速表！
 }
 

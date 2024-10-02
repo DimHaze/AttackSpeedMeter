@@ -1,26 +1,33 @@
 UITips: {
-	MeleeSpeedHeader: - Melee Speed -
-	RangedSpeedHeader: - Ranged Speed -
-	MeleeNoSpeedSpeedHeader: - Melee (No Speed) Speed -
-	MagicSpeedHeader: - Magic Speed -
-	SummonMeleeSpeedHeader: - Whip Speed -
-	ThrowingSpeedHeader: - Throwing Speed -
-	GenericSpeedHeader: - Generic Speed -
-	SummonSpeedHeader: - Summon Speed -
-	RogueSpeedHeader: - Rogue Speed -
-	TrueMeleeSpeedHeader: - True Melee Speed -
-	TrueMeleeNoSpeedSpeedHeader: - True Melee (No Speed) Speed -
-	MeleeRangedHybridSpeedHeader: - Melee - Ranged Hybrid Speed -
-	AverageSpeedHeader: - Typeless Speed -
-	HealerSpeedHeader: - Healer Speed -
-	HealerToolSpeedHeader: - Healer Tool Speed -
-	BardDamageSpeedHeader: - Bard Damage Speed -
-	StatusTemplate: Current use time:[usetime] Attack Speed:[buff]
-	ThresholdTemplate: Previous threshold:[prev] Next threshold:[next]
-	MaxThresholdTemplate: Previous threshold:[prev] Minimum use time now!
-	ItemMultiplierTemplate: Item attack speed multiplier:[mult]
-	PlayerMultiplierTemplate: Player extra attack speed multiplier: [mult]
-	UseAnimationWarn: Unique use animation detected!
+	Headers: {
+		MeleeSpeed: - Melee Speed:[BUFF] -
+		RangedSpeed: - Ranged Speed:[BUFF] -
+		MeleeNoSpeedSpeed: - Melee (No Speed):[BUFF] -
+		MagicSpeed: - Magic Speed:[BUFF] -
+		SummonMeleeSpeed: - Whip Speed:[BUFF] -
+		ThrowingSpeed: - Throwing Speed:[BUFF] -
+		GenericSpeed: - Generic Speed:[BUFF] -
+		SummonSpeed: - Summon Speed:[BUFF] -
+		RogueSpeed: - Rogue Speed:[BUFF] -
+		TrueMeleeSpeed: - True Melee Speed:[BUFF] -
+		TrueMeleeNoSpeedSpeed: - True Melee (No Speed):[BUFF] -
+		MeleeRangedHybridSpeed: - Melee-Ranged Hybrid Speed:[BUFF] -
+		AverageSpeed: - Typeless Speed:[BUFF] -
+		HealerSpeed: - Healer Speed:[BUFF] -
+		HealerToolSpeed: - Healer Tool Speed:[BUFF] -
+		BardDamageSpeed: - Bard Damage Speed:[BUFF] -
+	}
+
+	UseTime: {
+		StatusTemplate: "[PREV] ← Use time: [TIME] → [NEXT]"
+		ExtraMultiplierTemplate: Extra multiplier:player[PLAYER] item[ITEM]
+	}
+
+	UseAnimation: {
+		StatusTemplate: "[PREV] ← Animation: [TIME] → [NEXT]"
+		ExtraMultiplierTemplate: Extra multiplier:player[PLAYER] item[ITEM]
+	}
+
 	Greetings: Hold or use a weapon to activate the meter.
 }
 

@@ -19,10 +19,6 @@ namespace AttackSpeedMeter.UI
         public override void OnInitialize()
         {
             mainPanel = new AutoTextPanel();
-            mainPanel.Width.Set(350, 0);
-            mainPanel.Height.Set(150, 0);
-            mainPanel.HAlign = 0.6f;
-            mainPanel.Top.Set(20, 0);
             Append(mainPanel);
 
             mainPanel.AddText(LocalizationHelper.GetGreetings());
@@ -40,51 +36,82 @@ namespace AttackSpeedMeter.UI
                 mainPanel.RemoveAllText();
                 DamageClass damageClass = item.DamageType;
                 var useTime = item.useTime;
-                mainPanel.AddText(LocalizationHelper.GetHeader(damageClass));
+                bool needAnimationTime = true;
+                bool needUseTime = false;
+                float attackSpeed = player.GetTotalAttackSpeed(damageClass);
+                int totalUseTime = CombinedHooks.TotalUseTime(useTime, player, item);
+                int totalAnimationTime = CombinedHooks.TotalAnimationTime(useTime, player, item);
+                float vanillaMult = ItemID.Sets.BonusAttackSpeedMultiplier[item.type];
+
+                float prevUseTimeThreshold;
+                float? nextUseTimeThreshold = null;
+                if (totalUseTime != 1)
+                {
+                    nextUseTimeThreshold = UseTimeHelper.BinarySearchThreshold(player, item, totalUseTime - 1);
+                }
+                prevUseTimeThreshold = UseTimeHelper.BinarySearchThreshold(player, item, totalUseTime);
+
+                float prevAnimationThreshold;
+                float? nextAnimationThreshold = null;
+                if (totalAnimationTime != 1)
+                {
+                    nextAnimationThreshold = UseAnimationHelper.BinarySearchThreshold(player, item, totalAnimationTime - 1);
+                }
+                prevAnimationThreshold = UseAnimationHelper.BinarySearchThreshold(player, item, totalAnimationTime);
+
                 if (!item.attackSpeedOnlyAffectsWeaponAnimation)
                 {
-                    int totalUsetime = CombinedHooks.TotalUseTime(useTime, player, item);
-                    float vanillaMult = ItemID.Sets.BonusAttackSpeedMultiplier[item.type];
+                    needUseTime = true;
+                    if(totalAnimationTime==totalUseTime ||(prevUseTimeThreshold==prevAnimationThreshold&&nextUseTimeThreshold==nextAnimationThreshold))
+                    {
+                        needAnimationTime = false;
+                    }
+                }
+                mainPanel.AddText(LocalizationHelper.GetHeader(damageClass,attackSpeed));
+                
+
+                mainPanel.AddText(LocalizationHelper.GetStatus(false, totalUseTime, prevUseTimeThreshold, nextUseTimeThreshold));
+                if (needUseTime)
+                {
                     float itemMult = ItemLoader.UseTimeMultiplier(item, player)
-                                     *(1/ ItemLoader.UseSpeedMultiplier(item, player));
+                                     * (1 / ItemLoader.UseSpeedMultiplier(item, player));
                     float playerMult = PlayerLoader.UseTimeMultiplier(player, item)
-                                       *(1/ PlayerLoader.UseSpeedMultiplier(player, item));
-                    var prevThreshold = ThresholdHelper.Threshold(useTime * itemMult * playerMult, totalUsetime + 1, vanillaMult);
-                    var nextThreshold = ThresholdHelper.Threshold(useTime * itemMult * playerMult, totalUsetime, vanillaMult);
-                    float attackSpeed = player.GetTotalAttackSpeed(damageClass);
-                    //mainPanel.AddText(attackSpeed.ToString()); // debug
-                    mainPanel.AddText(LocalizationHelper.GetStatus(totalUsetime, attackSpeed));
-                    if (totalUsetime == 1)
-                    {
-                        mainPanel.AddText(LocalizationHelper.GetMaxThresholds(prevThreshold));
-                    }
-                    else
-                    {
-                        mainPanel.AddText(LocalizationHelper.GetThresholds(prevThreshold, nextThreshold));
-                    }
+                                       * (1 / PlayerLoader.UseSpeedMultiplier(player, item));
                     if (Math.Abs(itemMult - 1) >= 1e-4f)
                     {
-                        mainPanel.AddText(LocalizationHelper.GetItemMultiplier(1/itemMult));
+                        mainPanel.AddText(LocalizationHelper.GetMultiplier(false,1/playerMult,1 / itemMult));
                     }
                     else if (Math.Abs(vanillaMult - 1) >= 1e-4f)
                     {
-                        mainPanel.AddText(LocalizationHelper.GetItemMultiplier(vanillaMult));
+                        mainPanel.AddText(LocalizationHelper.GetMultiplier(false, 1 / playerMult, vanillaMult));
                     }
-                    if (Math.Abs(playerMult - 1) >= 1e-4f)
+                    else if (Math.Abs(playerMult - 1) >= 1e-4f)
                     {
-                        mainPanel.AddText(LocalizationHelper.GetPlayerMultiplier(1/playerMult));
-                    }
-                    if (useTime != item.useAnimation)
-                    {
-                        mainPanel.AddText(LocalizationHelper.GetWarn());
+                        mainPanel.AddText(LocalizationHelper.GetMultiplier(false, 1 / playerMult, 1 / itemMult));
                     }
                 }
-                else
+                if (needAnimationTime)
                 {
-                    mainPanel.AddText(LocalizationHelper.GetWarn());
+                    mainPanel.AddText(LocalizationHelper.GetStatus(true, totalAnimationTime, prevAnimationThreshold, nextAnimationThreshold));
+                    float itemMult = ItemLoader.UseAnimationMultiplier(item, player)
+                                     * (1 / ItemLoader.UseSpeedMultiplier(item, player));
+                    float playerMult = PlayerLoader.UseAnimationMultiplier(player, item)
+                                       * (1 / PlayerLoader.UseSpeedMultiplier(player, item));
+                    if (Math.Abs(itemMult - 1) >= 1e-4f)
+                    {
+                        mainPanel.AddText(LocalizationHelper.GetMultiplier(true, 1 / playerMult, 1 / itemMult));
+                    }
+                    else if (Math.Abs(vanillaMult - 1) >= 1e-4f)
+                    {
+                        mainPanel.AddText(LocalizationHelper.GetMultiplier(true, 1 / playerMult, vanillaMult));
+                    }
+                    else if (Math.Abs(playerMult - 1) >= 1e-4f)
+                    {
+                        mainPanel.AddText(LocalizationHelper.GetMultiplier(true, 1 / playerMult, 1 / itemMult));
+                    }
                 }
             }
-
+            mainPanel.UpdateHeight();
             base.Update(gameTime);
         }
     }
