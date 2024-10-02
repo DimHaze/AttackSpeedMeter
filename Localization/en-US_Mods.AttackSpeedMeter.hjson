@@ -1,21 +1,21 @@
 UITips: {
 	Headers: {
-		MeleeSpeed: - Melee Speed:[BUFF] -
-		RangedSpeed: - Ranged Speed:[BUFF] -
-		MeleeNoSpeedSpeed: - Melee (No Speed):[BUFF] -
-		MagicSpeed: - Magic Speed:[BUFF] -
-		SummonMeleeSpeed: - Whip Speed:[BUFF] -
-		ThrowingSpeed: - Throwing Speed:[BUFF] -
+		MeleeSpeed: - [c/ff90a0:Melee Speed:[BUFF]] -
+		RangedSpeed: - [c/b6ff90:Ranged Speed:[BUFF]] -
+		MeleeNoSpeedSpeed: - [c/be8189:Melee (No Speed):[BUFF]] -
+		MagicSpeed: - [c/90efff:Magic Speed:[BUFF]] -
+		SummonMeleeSpeedSpeed: - [c/ff90bc:Whip Speed:[BUFF]] -
+		ThrowingSpeed: - [c/ffaa90:Throwing Speed:[BUFF]] -
 		GenericSpeed: - Generic Speed:[BUFF] -
-		SummonSpeed: - Summon Speed:[BUFF] -
-		RogueSpeed: - Rogue Speed:[BUFF] -
-		TrueMeleeSpeed: - True Melee Speed:[BUFF] -
-		TrueMeleeNoSpeedSpeed: - True Melee (No Speed):[BUFF] -
-		MeleeRangedHybridSpeed: - Melee-Ranged Hybrid Speed:[BUFF] -
+		SummonSpeed: - [c/fb90eb:Summon Speed:[BUFF]] -
+		RogueSpeed: - [c/d490ff:Rogue Speed:[BUFF]] -
+		TrueMeleeSpeed: - [c/ff90a0:True Melee Speed:[BUFF]] -
+		TrueMeleeNoSpeedSpeed: - [c/be8189:True Melee (No Speed):[BUFF]] -
+		MeleeRangedHybridSpeed: - [c/a790ff:Melee-Ranged Hybrid Speed:[BUFF]] -
 		AverageSpeed: - Typeless Speed:[BUFF] -
-		HealerSpeed: - Healer Speed:[BUFF] -
-		HealerToolSpeed: - Healer Tool Speed:[BUFF] -
-		BardDamageSpeed: - Bard Damage Speed:[BUFF] -
+		HealerSpeed: - [c/ffd890:Healer Speed:[BUFF]] -
+		HealerToolSpeed: - [c/ffd890:Healer Tool Speed:[BUFF]] -
+		BardSpeed: - [c/90ffd1:Bard Damage Speed:[BUFF]] -
 	}
 
 	UseTime: {
