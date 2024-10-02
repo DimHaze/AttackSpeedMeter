@@ -29,6 +29,10 @@ namespace AttackSpeedMeter.UI
         }
         public override void Update(GameTime gameTime)
         {
+            if ((long)Main.GameUpdateCount % 2 != 0)
+            {
+                return;
+            }
             Player player = Main.player[Main.myPlayer];
             Item item = player.HeldItem;
             if (item.damage >= 0 && item.useTime > 0 && !(item.ammo > 0) && !item.accessory )
@@ -42,12 +46,13 @@ namespace AttackSpeedMeter.UI
                     int totalUsetime = CombinedHooks.TotalUseTime(useTime, player, item);
                     float vanillaMult = ItemID.Sets.BonusAttackSpeedMultiplier[item.type];
                     float itemMult = ItemLoader.UseTimeMultiplier(item, player)
-                                     / ItemLoader.UseSpeedMultiplier(item, player);
+                                     *(1/ ItemLoader.UseSpeedMultiplier(item, player));
                     float playerMult = PlayerLoader.UseTimeMultiplier(player, item)
-                                       / PlayerLoader.UseSpeedMultiplier(player, item);
+                                       *(1/ PlayerLoader.UseSpeedMultiplier(player, item));
                     var prevThreshold = ThresholdHelper.Threshold(useTime * itemMult * playerMult, totalUsetime + 1, vanillaMult);
                     var nextThreshold = ThresholdHelper.Threshold(useTime * itemMult * playerMult, totalUsetime, vanillaMult);
                     float attackSpeed = player.GetTotalAttackSpeed(damageClass);
+                    //mainPanel.AddText(attackSpeed.ToString()); // debug
                     mainPanel.AddText(LocalizationHelper.GetStatus(totalUsetime, attackSpeed));
                     if (totalUsetime == 1)
                     {
@@ -57,15 +62,15 @@ namespace AttackSpeedMeter.UI
                     {
                         mainPanel.AddText(LocalizationHelper.GetThresholds(prevThreshold, nextThreshold));
                     }
-                    if (Math.Abs(itemMult - 1) >= 1e-6f)
+                    if (Math.Abs(itemMult - 1) >= 1e-4f)
                     {
                         mainPanel.AddText(LocalizationHelper.GetItemMultiplier(1/itemMult));
                     }
-                    else if (Math.Abs(vanillaMult - 1) >= 1e-6f)
+                    else if (Math.Abs(vanillaMult - 1) >= 1e-4f)
                     {
                         mainPanel.AddText(LocalizationHelper.GetItemMultiplier(vanillaMult));
                     }
-                    if (Math.Abs(playerMult - 1) >= 1e-6f)
+                    if (Math.Abs(playerMult - 1) >= 1e-4f)
                     {
                         mainPanel.AddText(LocalizationHelper.GetPlayerMultiplier(1/playerMult));
                     }

@@ -11,13 +11,13 @@ namespace AttackSpeedMeter.Helpers
     {
         public static float SafeFloor(float input)
         {
-            if (Math.Ceiling(input) - input < 0.00001f)
+            if (Math.Ceiling(input) - input < 0.001f)
                 return (float)Math.Ceiling(input);
             return (float)Math.Floor(input);
         }
         public static float SafeCeiling(float input)
         {
-            if (input - Math.Floor(input) < 0.00001f)
+            if (input - Math.Floor(input) < 0.001f)
                 return (float)Math.Floor(input);
             return (float)Math.Ceiling(input);
         }
