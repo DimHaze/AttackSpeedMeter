@@ -33,6 +33,10 @@ namespace AttackSpeedMeter.ModSystems
                 return _defaultClass;
             }
         }
+        public static bool Contains(DamageClass damageClass)
+        {
+            return _supportedClasses.ContainsKey(damageClass);
+        }
         public override void OnWorldLoad()
         {
             if (ModLoader.TryGetMod("CalamityMod", out var cal))

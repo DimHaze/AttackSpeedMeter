@@ -17,13 +17,18 @@ namespace AttackSpeedMeter.Helpers
             Language.GetTextValue("Mods.AttackSpeedMeter.UITips.Headers."
             + ModContent.GetInstance<DamageClasses>()[damageClass] + "Speed")
             .Replace("[BUFF]", FormatHelper.PercentageFloor(buff - 1));
+        public static String GetSimpleStatus(int useTime)
+        {
+            return Language.GetTextValue("Mods.AttackSpeedMeter.UITips.UseTime.SimpleStatusTemplate")
+                            .Replace("[TIME]", useTime.ToString());
+        }
         public static String GetStatus(bool IsUseAnimation, int time, float prev, float? next)
         {
             string loc = IsUseAnimation ? "UseAnimation" : "UseTime";
             return Language.GetTextValue("Mods.AttackSpeedMeter.UITips." + loc + ".StatusTemplate")
                             .Replace("[TIME]", time.ToString())
-                            .Replace("[PREV]", (prev - 100).ToString() + "%")
-                            .Replace("[NEXT]", next==null? "∞" : ((next - 100).ToString() + "%"));
+                            .Replace("[PREV]", ((prev - 10000)/100).ToString("+#0.00;-#0.00;0") + "%")
+                            .Replace("[NEXT]", next==null? "∞" : (((next - 10000)/100).Value.ToString("+#0.00;-#0.00;0") + "%"));
         }
         public static String GetMultiplier(bool IsUseAnimation, float playerMult, float itemMult)
         {

@@ -1,5 +1,6 @@
 ﻿using AttackSpeedMeter.Helpers;
 using AttackSpeedMeter.ModConfigs;
+using AttackSpeedMeter.ModSystems;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -32,16 +33,16 @@ namespace AttackSpeedMeter.UI
             }
             Player player = Main.player[Main.myPlayer];
             Item item = player.HeldItem;
-            if (item.damage >= 0 && item.useTime > 0 && !(item.ammo > 0) && !item.accessory )
+            DamageClass damageClass = item.DamageType;
+            if ((item.damage >= 0 || DamageClasses.Contains(damageClass)) && item.useTime > 0 && !(item.ammo > 0) && !item.accessory )
             {
                 mainPanel.RemoveAllText();
-                DamageClass damageClass = item.DamageType;
                 var useTime = item.useTime;
                 bool needAnimationTime = true;
                 bool needUseTime = false;
                 float attackSpeed = player.GetTotalAttackSpeed(damageClass);
                 int totalUseTime = CombinedHooks.TotalUseTime(useTime, player, item);
-                int totalAnimationTime = CombinedHooks.TotalAnimationTime(useTime, player, item);
+                int totalAnimationTime = CombinedHooks.TotalAnimationTime(item.useAnimation, player, item);
                 float vanillaMult = ItemID.Sets.BonusAttackSpeedMultiplier[item.type];
 
                 float prevUseTimeThreshold;
@@ -71,9 +72,9 @@ namespace AttackSpeedMeter.UI
                 mainPanel.AddText(LocalizationHelper.GetHeader(damageClass,attackSpeed));
                 
 
-                mainPanel.AddText(LocalizationHelper.GetStatus(false, totalUseTime, prevUseTimeThreshold, nextUseTimeThreshold));
                 if (needUseTime)
                 {
+                    mainPanel.AddText(LocalizationHelper.GetStatus(false, totalUseTime, prevUseTimeThreshold, nextUseTimeThreshold));
                     float itemMult = ItemLoader.UseTimeMultiplier(item, player)
                                      * (1 / ItemLoader.UseSpeedMultiplier(item, player));
                     float playerMult = PlayerLoader.UseTimeMultiplier(player, item)
@@ -90,6 +91,10 @@ namespace AttackSpeedMeter.UI
                     {
                         mainPanel.AddText(LocalizationHelper.GetMultiplier(false, 1 / playerMult, 1 / itemMult));
                     }
+                }
+                else
+                {
+                    mainPanel.AddText(LocalizationHelper.GetSimpleStatus(totalUseTime));
                 }
                 if (needAnimationTime)
                 {

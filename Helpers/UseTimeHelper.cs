@@ -12,9 +12,9 @@ namespace AttackSpeedMeter.Helpers
 {
     public class UseTimeHelper
     {
-        private static float _left = -0.99f;
-        private static float _right = 10.0f;
-        private static float _epsilon = 0.01f;
+        private static float _left = -0.9900f;
+        private static float _right = 20.0000f;
+        private static float _epsilon = 0.0001f;
         public static int TotalUseTimeSim(float attackSpeed, float vanillaSpeedMult,
             float playerSpeedMult, float itemSpeedMult,
             float playerTimeMult, float itemTimeMult,
@@ -51,16 +51,16 @@ namespace AttackSpeedMeter.Helpers
                     right = mid; 
                 }
             }
-            var right_high = Math.Ceiling(right * 100)/100;
-            var right_low = Math.Floor(right * 100) / 100;
+            var right_high = Math.Ceiling(right * 10000)/10000;
+            var right_low = Math.Floor(right * 10000) / 10000;
             var f_right_low = TotalUseTimeSim((float)right_low, vanillaSpeedMult, playerSpeedMult, itemSpeedMult, playerTimeMult, itemTimeMult, useTime);
             if (f_right_low<=tgtUseTime)
             {
-                return (int)FormatHelper.SafeFloor((float)(right_low*100));
+                return (int)FormatHelper.SafeFloor((float)(right_low*10000));
             }
             else
             {
-                return (int)FormatHelper.SafeFloor((float)(right_high*100));
+                return (int)FormatHelper.SafeFloor((float)(right_high*10000));
             }
         }
     }

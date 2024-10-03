@@ -11,19 +11,19 @@ namespace AttackSpeedMeter.Helpers
     {
         public static float SafeFloor(float input)
         {
-            if (Math.Ceiling(input) - input < 0.001f)
+            if (Math.Ceiling(input) - input < 0.01f)
                 return (float)Math.Ceiling(input);
             return (float)Math.Floor(input);
         }
         public static float SafeCeiling(float input)
         {
-            if (input - Math.Floor(input) < 0.001f)
+            if (input - Math.Floor(input) < 0.01f)
                 return (float)Math.Floor(input);
             return (float)Math.Ceiling(input);
         }
         public static string PercentageFloor(float percent) => 
-            ((int)SafeFloor(percent * 100f)).ToString() + "%";
+            (SafeFloor(percent * 10000f)/100f).ToString("+#0.00;-#0.00;0") + "%";
         public static string PercentageCeil(float percent) =>
-            ((int)SafeCeiling(percent * 100f)).ToString() + "%";
+            (SafeCeiling(percent * 10000f)/100f).ToString("+#0.00;-#0.00;0") + "%";
     }
 }

@@ -19,6 +19,7 @@ UITips: {
 	}
 
 	UseTime: {
+		SimpleStatusTemplate: 当前使用时间: [TIME]
 		StatusTemplate: "[PREV] ← 当前使用时间: [TIME] → [NEXT]"
 		ExtraMultiplierTemplate: 额外倍率:玩家[PLAYER] 物品[ITEM]
 	}

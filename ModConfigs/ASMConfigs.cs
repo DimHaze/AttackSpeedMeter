@@ -15,8 +15,8 @@ namespace AttackSpeedMeter.ModConfigs
         public float HPosition;
         [DefaultValue(0.05f)]
         public float VPosition;
-        [Range(100, 500)]
-        [DefaultValue(300)]
+        [Range(300, 600)]
+        [DefaultValue(400)]
         public int Width;
     }
 }
