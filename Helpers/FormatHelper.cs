@@ -1,14 +1,18 @@
-﻿using System;
+﻿using SteelSeries.GameSense;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace AttackSpeedMeter.Helpers
 {
     internal class FormatHelper
     {
+        public static string ColorToString(Color color) =>
+            color.R.ToString("X").ToLower() + color.G.ToString("X").ToLower() + color.B.ToString("X").ToLower();
         public static float SafeFloor(float input)
         {
             if (Math.Ceiling(input) - input < 0.01f)
@@ -21,9 +25,11 @@ namespace AttackSpeedMeter.Helpers
                 return (float)Math.Floor(input);
             return (float)Math.Ceiling(input);
         }
-        public static string PercentageFloor(float percent) => 
-            (SafeFloor(percent * 10000f)/100f).ToString("+#0.00;-#0.00;0") + "%";
+        public static string PercentageFloorSigned(float percent) => 
+            (SafeFloor(percent - 10000f)/100f).ToString("+#0.00;-#0.00;0") + "%";
+        public static string PercentageFloor(float percent) =>
+            (SafeFloor(percent * 10000f) / 100f).ToString() + "%";
         public static string PercentageCeil(float percent) =>
-            (SafeCeiling(percent * 10000f)/100f).ToString("+#0.00;-#0.00;0") + "%";
+            (SafeCeiling(percent - 10000f)/100f).ToString("+#0.00;-#0.00;0") + "%";
     }
 }

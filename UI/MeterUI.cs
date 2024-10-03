@@ -34,6 +34,7 @@ namespace AttackSpeedMeter.UI
             Player player = Main.player[Main.myPlayer];
             Item item = player.HeldItem;
             DamageClass damageClass = item.DamageType;
+            // Get new infomation only if this is a weapon, not accessory or ammo
             if ((item.damage >= 0 || DamageClasses.Contains(damageClass)) && item.useTime > 0 && !(item.ammo > 0) && !item.accessory )
             {
                 mainPanel.RemoveAllText();
@@ -44,7 +45,8 @@ namespace AttackSpeedMeter.UI
                 int totalUseTime = CombinedHooks.TotalUseTime(useTime, player, item);
                 int totalAnimationTime = CombinedHooks.TotalAnimationTime(item.useAnimation, player, item);
                 float vanillaMult = ItemID.Sets.BonusAttackSpeedMultiplier[item.type];
-
+                // Calculate Use Time Thresholds
+                // nextUseTimeThreshold with a null means that Total Use Time cant be any smaller 
                 float prevUseTimeThreshold;
                 float? nextUseTimeThreshold = null;
                 if (totalUseTime != 1)
@@ -52,15 +54,19 @@ namespace AttackSpeedMeter.UI
                     nextUseTimeThreshold = UseTimeHelper.BinarySearchThreshold(player, item, totalUseTime - 1);
                 }
                 prevUseTimeThreshold = UseTimeHelper.BinarySearchThreshold(player, item, totalUseTime);
-
+                // Calculate Animation Thresholds
+                // nextAnimationThreshold with a null means that Total Animation cant be any smaller 
                 float prevAnimationThreshold;
                 float? nextAnimationThreshold = null;
-                if (totalAnimationTime != 1)
+                var multipliedUseTime = Math.Max(1, (int)(item.useTime * (1 / CombinedHooks.TotalUseSpeedMultiplier(player, item))));
+                if (totalAnimationTime != 1 && multipliedUseTime!=1 && (int)(multipliedUseTime * item.useAnimation / item.useTime)>1)
                 {
                     nextAnimationThreshold = UseAnimationHelper.BinarySearchThreshold(player, item, totalAnimationTime - 1);
                 }
                 prevAnimationThreshold = UseAnimationHelper.BinarySearchThreshold(player, item, totalAnimationTime);
-
+                // Decides which information to display
+                // attackSpeedOnlyAffectsWeaponAnimation means that speed dont affact Use Time, so dont display thresholds
+                // totalAnimationTime==totalUseTime or they have same thresholds lead to information redundancy
                 if (!item.attackSpeedOnlyAffectsWeaponAnimation)
                 {
                     needUseTime = true;
@@ -71,10 +77,20 @@ namespace AttackSpeedMeter.UI
                 }
                 mainPanel.AddText(LocalizationHelper.GetHeader(damageClass,attackSpeed));
                 
-
                 if (needUseTime)
                 {
-                    mainPanel.AddText(LocalizationHelper.GetStatus(false, totalUseTime, prevUseTimeThreshold, nextUseTimeThreshold));
+                    Color? prevColor = null;
+                    Color? nextColor = null;
+                    // Insert your code of coloring here
+                    // Leave it null for white
+                    // Change the color for infinity in LocalizationHelper.cs
+                    
+                    // FOR DEBUG: Displays the color along side RGB value
+                    //mainPanel.AddText("[c/" + FormatHelper.ColorToString(prevColor.Value) + ":"+
+                    //                    FormatHelper.ColorToString(prevColor.Value)
+                    //                    +"]");
+                    mainPanel.AddText(LocalizationHelper.GetStatus(false, totalUseTime, prevUseTimeThreshold, nextUseTimeThreshold,prevColor,nextColor));
+                    // extra multipliers
                     float itemMult = ItemLoader.UseTimeMultiplier(item, player)
                                      * (1 / ItemLoader.UseSpeedMultiplier(item, player));
                     float playerMult = PlayerLoader.UseTimeMultiplier(player, item)
@@ -94,11 +110,18 @@ namespace AttackSpeedMeter.UI
                 }
                 else
                 {
+                    // simply displays Total Use Time
                     mainPanel.AddText(LocalizationHelper.GetSimpleStatus(totalUseTime));
                 }
                 if (needAnimationTime)
                 {
-                    mainPanel.AddText(LocalizationHelper.GetStatus(true, totalAnimationTime, prevAnimationThreshold, nextAnimationThreshold));
+                    Color? prevColor = null;
+                    Color? nextColor = null;
+                    // Insert your code of coloring here
+                    // Leave it null for white
+                    // Change the color for infinity in LocalizationHelper.cs
+                    mainPanel.AddText(LocalizationHelper.GetStatus(true, totalAnimationTime, prevAnimationThreshold, nextAnimationThreshold,prevColor,nextColor));
+                    // extra multipliers
                     float itemMult = ItemLoader.UseAnimationMultiplier(item, player)
                                      * (1 / ItemLoader.UseSpeedMultiplier(item, player));
                     float playerMult = PlayerLoader.UseAnimationMultiplier(player, item)
