@@ -1,21 +1,21 @@
 UITips: {
 	Headers: {
-		MeleeSpeed: - 近战攻速:[BUFF] -
-		RangedSpeed: - 远程攻速:[BUFF] -
-		MeleeNoSpeedSpeed: - 非攻速近战攻速:[BUFF] -
-		MagicSpeed: - 魔法攻速:[BUFF] -
-		SummonMeleeSpeed: - 鞭子攻速:[BUFF] -
-		ThrowingSpeed: - 投掷攻速:[BUFF] -
+		MeleeSpeed: - [c/ff90a0:近战攻速:[BUFF]] -
+		RangedSpeed: - [c/b6ff90:远程攻速:[BUFF]] -
+		MeleeNoSpeedSpeed: - [c/be8189:非攻速近战攻速:[BUFF]] -
+		MagicSpeed: - [c/90efff:魔法攻速:[BUFF]] -
+		SummonMeleeSpeedSpeed: - [c/ff90bc:鞭子攻速:[BUFF]] -
+		ThrowingSpeed: - [c/ffaa90:投掷攻速:[BUFF]] -
 		GenericSpeed: - 全局攻速:[BUFF] -
-		SummonSpeed: - 召唤攻速:[BUFF] -
-		RogueSpeed: - 盗贼攻速:[BUFF] -
-		TrueMeleeSpeed: - 真近战攻速:[BUFF] -
-		TrueMeleeNoSpeedSpeed: - 非攻速真近战攻速:[BUFF] -
-		MeleeRangedHybridSpeed: - 近战-远程混合攻速:[BUFF] -
+		SummonSpeed: - [c/fb90eb:召唤攻速:[BUFF]] -
+		RogueSpeed: - [c/d490ff:盗贼攻速:[BUFF]] -
+		TrueMeleeSpeed: - [c/ff90a0:真近战攻速:[BUFF]] -
+		TrueMeleeNoSpeedSpeed: - [c/be8189:非攻速真近战攻速:[BUFF]] -
+		MeleeRangedHybridSpeed: - [c/a790ff:近战-远程混合攻速:[BUFF]] -
 		AverageSpeed: - 无职业攻速:[BUFF] -
-		HealerSpeed: - 光辉攻速:[BUFF] -
-		HealerToolSpeed: - 治疗速度:[BUFF] -
-		BardDamageSpeed: - 演奏速度:[BUFF] -
+		HealerSpeed: - [c/ffd890:光辉攻速:[BUFF]] -
+		HealerToolSpeed: - [c/ffd890:治疗速度:[BUFF]] -
+		BardSpeed: - [c/90ffd1:演奏速度:[BUFF]] -
 	}
 
 	UseTime: {
