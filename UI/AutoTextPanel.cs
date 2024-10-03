@@ -1,9 +1,11 @@
-﻿using System;
+﻿using AttackSpeedMeter.ModConfigs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader;
 
 namespace AttackSpeedMeter.UI
 {
@@ -11,18 +13,15 @@ namespace AttackSpeedMeter.UI
     {
         private static readonly float VPadding = 3;
         private static readonly float VLine = 23;
-        private static readonly float _width = 300;
         private static readonly float _height = 200;
-        private static readonly float _hAlign = 0.6f;
-        private static readonly float _top = 20;
         private int childIndex;
         private static float VPos(int index) => VPadding + VLine * index;
         public override void OnInitialize()
         {
-            Width.Set(_width, 0);
+            Width.Set(ModContent.GetInstance<ASMConfigs>().Width, 0);
             Height.Set(_height, 0);
-            HAlign = _hAlign;
-            Top.Set(_top, 0);
+            HAlign = ModContent.GetInstance<ASMConfigs>().HPosition;
+            VAlign = ModContent.GetInstance<ASMConfigs>().VPosition;
             childIndex = 0;
             base.OnInitialize();
         }
@@ -36,8 +35,11 @@ namespace AttackSpeedMeter.UI
             childIndex++;
             base.Append(temp);
         }
-        public void UpdateHeight()
+        public void FinalUpdate()
         {
+            HAlign = ModContent.GetInstance<ASMConfigs>().HPosition;
+            VAlign = ModContent.GetInstance<ASMConfigs>().VPosition;
+            Width.Set(ModContent.GetInstance<ASMConfigs>().Width, 0);
             Height.Set((childIndex+1)*VLine+VPadding, 0);
         }
         public void RemoveAllText()

@@ -33,3 +33,24 @@ UITips: {
 
 "Keybinds.Toggle Attack Speed Meter.DisplayName": Toggle  Attack  Speed  Meter
 OtherTips.OnEnterWorld: Bind a key to open/close attack speed meter!
+
+Configs: {
+	ASMConfigs: {
+		DisplayName: Client Configs
+
+		HPosition: {
+			Label: Horizontal Position
+			Tooltip: Determines the horizontal position of the UI on the screen
+		}
+
+		VPosition: {
+			Label: Vertical Position
+			Tooltip: Determines the vertical position of the UI on the screen
+		}
+
+		Width: {
+			Label: UI Width
+			Tooltip: The width of the UI
+		}
+	}
+}

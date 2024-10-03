@@ -1,4 +1,5 @@
 ﻿using AttackSpeedMeter.Helpers;
+using AttackSpeedMeter.ModConfigs;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -111,7 +112,7 @@ namespace AttackSpeedMeter.UI
                     }
                 }
             }
-            mainPanel.UpdateHeight();
+            mainPanel.FinalUpdate();
             base.Update(gameTime);
         }
     }
