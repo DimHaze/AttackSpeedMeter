@@ -39,7 +39,6 @@ namespace AttackSpeedMeter.UI
             {
                 _dragging = true;
                 _xBias = evt.MousePosition.X - HAlign*Main.screenWidth;
-                //Main.NewText(evt.MousePosition.X + " " + HAlign * Main.screenWidth + " " + _xBias);
                 _yBias = evt.MousePosition.Y - VAlign*Main.screenHeight;
                 SoundEngine.PlaySound(SoundID.MenuTick);
             }

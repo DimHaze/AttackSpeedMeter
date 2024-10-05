@@ -58,9 +58,9 @@ Configs: {
 			Label: "[Experimental] Draggable"
 			Tooltip:
 				'''
-				Experimental feature!
+				Experimental feature! Not stable on machines with 60+ fps.
 				Sometimes dragging doesnt stop when mouse released.
-				High FPS Support might imporve the situation.
+				High FPS Support will imporve the situation.
 				'''
 		}
 	}
