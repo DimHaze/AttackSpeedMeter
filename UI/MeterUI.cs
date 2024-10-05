@@ -22,8 +22,6 @@ namespace AttackSpeedMeter.UI
         {
             mainPanel = new AutoTextPanel();
             Append(mainPanel);
-
-            mainPanel.AddText(LocalizationHelper.GetGreetings());
         }
         public override void Update(GameTime gameTime)
         {
@@ -35,10 +33,10 @@ namespace AttackSpeedMeter.UI
             Player player = Main.player[Main.myPlayer];
             Item item = player.HeldItem;
             DamageClass damageClass = item.DamageType;
+            mainPanel.RemoveAllText();
             // Get new infomation only if this is a weapon, not accessory or ammo
-            if ((item.damage >= 0 || DamageClasses.Contains(damageClass)) && item.useTime > 0 && !(item.ammo > 0) && !item.accessory )
+            if ((item.damage >= 0 || DamageClasses.Contains(damageClass)) && item.useTime > 0 && !(item.ammo > 0) && !item.accessory)
             {
-                mainPanel.RemoveAllText();
                 var useTime = item.useTime;
                 bool needAnimationTime = true;
                 bool needUseTime = false;
@@ -60,7 +58,7 @@ namespace AttackSpeedMeter.UI
                 float prevAnimationThreshold;
                 float? nextAnimationThreshold = null;
                 var multipliedUseTime = Math.Max(1, (int)(item.useTime * (1 / CombinedHooks.TotalUseSpeedMultiplier(player, item))));
-                if (totalAnimationTime != 1 && multipliedUseTime!=1 && (int)(multipliedUseTime * item.useAnimation / item.useTime)>1)
+                if (totalAnimationTime != 1 && multipliedUseTime != 1 && (int)(multipliedUseTime * item.useAnimation / item.useTime) > 1)
                 {
                     nextAnimationThreshold = UseAnimationHelper.BinarySearchThreshold(player, item, totalAnimationTime - 1);
                 }
@@ -71,13 +69,13 @@ namespace AttackSpeedMeter.UI
                 if (!item.attackSpeedOnlyAffectsWeaponAnimation)
                 {
                     needUseTime = true;
-                    if(totalAnimationTime==totalUseTime ||(prevUseTimeThreshold==prevAnimationThreshold&&nextUseTimeThreshold==nextAnimationThreshold))
+                    if (totalAnimationTime == totalUseTime || (prevUseTimeThreshold == prevAnimationThreshold && nextUseTimeThreshold == nextAnimationThreshold))
                     {
                         needAnimationTime = false;
                     }
                 }
-                mainPanel.AddText(LocalizationHelper.GetHeader(damageClass,attackSpeed));
-                
+                mainPanel.AddText(LocalizationHelper.GetHeader(damageClass, attackSpeed));
+
                 if (needUseTime)
                 {
                     // extra multipliers
@@ -94,9 +92,9 @@ namespace AttackSpeedMeter.UI
                     float assumedUseTimeForColor = item.useTime * itemMult * playerMult;
                     float? p = prevUseTimeThreshold * (1f / 10000f);
                     float? n = nextUseTimeThreshold * (1f / 10000f);
-                    prevColor = ColorHelper.GetColor(totalUseTime,assumedUseTimeForColor,p);
-                    currentColor = ColorHelper.GetColor(totalUseTime,assumedUseTimeForColor,attackSpeed);
-                    nextColor = ColorHelper.GetColor(totalUseTime-1,assumedUseTimeForColor,n);
+                    prevColor = ColorHelper.GetColor(totalUseTime, assumedUseTimeForColor, p);
+                    currentColor = ColorHelper.GetColor(totalUseTime, assumedUseTimeForColor, attackSpeed);
+                    nextColor = ColorHelper.GetColor(totalUseTime - 1, assumedUseTimeForColor, n);
                     // FOR DEBUG: Displays the color along side RGB value
                     // mainPanel.AddText(p.ToString());
                     //mainPanel.AddText("[c/" + FormatHelper.ColorToString(prevColor.Value) + ":"+
@@ -105,7 +103,7 @@ namespace AttackSpeedMeter.UI
                     mainPanel.AddText(LocalizationHelper.GetStatus(false, totalUseTime, prevUseTimeThreshold, nextUseTimeThreshold, prevColor, currentColor, nextColor));
                     if (Math.Abs(itemMult - 1) >= 1e-4f)
                     {
-                        mainPanel.AddText(LocalizationHelper.GetMultiplier(false,1/playerMult,1 / itemMult));
+                        mainPanel.AddText(LocalizationHelper.GetMultiplier(false, 1 / playerMult, 1 / itemMult));
                     }
                     else if (Math.Abs(vanillaMult - 1) >= 1e-4f)
                     {
@@ -138,9 +136,9 @@ namespace AttackSpeedMeter.UI
                     // the assumed use animation time if there is absolutely no rounding and no attack speed
                     float? p = prevAnimationThreshold * (1f / 10000f);
                     float? n = nextAnimationThreshold * (1f / 10000f);
-                    prevColor = ColorHelper.GetColor(totalAnimationTime,assumedUseAnimationTimeForColor,p);
-                    currentColor = ColorHelper.GetColor(totalAnimationTime,assumedUseAnimationTimeForColor,attackSpeed);
-                    nextColor = ColorHelper.GetColor(totalAnimationTime-1,assumedUseAnimationTimeForColor,n);
+                    prevColor = ColorHelper.GetColor(totalAnimationTime, assumedUseAnimationTimeForColor, p);
+                    currentColor = ColorHelper.GetColor(totalAnimationTime, assumedUseAnimationTimeForColor, attackSpeed);
+                    nextColor = ColorHelper.GetColor(totalAnimationTime - 1, assumedUseAnimationTimeForColor, n);
                     mainPanel.AddText(LocalizationHelper.GetStatus(true, totalAnimationTime, prevAnimationThreshold, nextAnimationThreshold, prevColor, currentColor, nextColor));
                     if (Math.Abs(itemMult - 1) >= 1e-4f)
                     {
@@ -154,6 +152,14 @@ namespace AttackSpeedMeter.UI
                     {
                         mainPanel.AddText(LocalizationHelper.GetMultiplier(true, 1 / playerMult, 1 / itemMult));
                     }
+                }
+            }
+            // print legends else
+            else
+            {
+                foreach (var legend in LocalizationHelper.GetLegends())
+                {
+                    mainPanel.AddText(legend);
                 }
             }
             mainPanel.UpdateText();

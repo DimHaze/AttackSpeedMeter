@@ -8,13 +8,24 @@ using System.Threading.Tasks;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Terraria;
 
 namespace AttackSpeedMeter.Helpers
 {
     public class LocalizationHelper
     {
-        public static String GetGreetings() =>
-            Language.GetTextValue("Mods.AttackSpeedMeter.UITips.Greetings");
+        private static List<string> _legends = [];
+        public static List<String> GetLegends()
+        {
+            if (_legends.Count == 0)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    _legends.Add(Language.GetTextValue("Mods.AttackSpeedMeter.UITips.Legend." + i.ToString()));
+                }
+            }
+            return _legends;
+        }
         public static String GetHeader(DamageClass damageClass, float buff) =>
             Language.GetTextValue("Mods.AttackSpeedMeter.UITips.Headers."
             + ModContent.GetInstance<DamageClasses>()[damageClass] + "Speed")

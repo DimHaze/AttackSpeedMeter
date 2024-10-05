@@ -29,7 +29,15 @@ UITips: {
 		ExtraMultiplierTemplate: 额外倍率:玩家[PLAYER] 物品[ITEM]
 	}
 
-	Greetings: 手持或使用武器来激活攻速表！
+	Legend: {
+		0: 图例
+		1: - 当前职业:攻速数值 -
+		2: 上一阈值 ← 当前使用时间 → 下一阈值
+		3: 上一阈值 ← 当前使用动画 → 下一阈值
+		4: 额外倍率:玩家倍率 物品倍率
+		5: 只有当必要时才会显示上述信息
+		6: 手持或使用武器来激活攻速表!
+	}
 }
 
 "Keybinds.Toggle Attack Speed Meter.DisplayName": 开关攻速显示UI
