@@ -29,6 +29,7 @@ namespace AttackSpeedMeter.UI
         {
             if ((long)Main.GameUpdateCount % 2 != 0)
             {
+                base.Update(gameTime);
                 return;
             }
             Player player = Main.player[Main.myPlayer];
@@ -140,7 +141,7 @@ namespace AttackSpeedMeter.UI
                     }
                 }
             }
-            mainPanel.FinalUpdate();
+            mainPanel.UpdateText();
             base.Update(gameTime);
         }
     }

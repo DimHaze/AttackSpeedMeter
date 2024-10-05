@@ -13,10 +13,12 @@ namespace AttackSpeedMeter.ModConfigs
         public override ConfigScope Mode => ConfigScope.ClientSide;
         [DefaultValue(0.6f)]
         public float HPosition;
-        [DefaultValue(0.05f)]
+        [DefaultValue(0.03f)]
         public float VPosition;
         [Range(300, 600)]
         [DefaultValue(400)]
         public int Width;
+        [DefaultValue(false)]
+        public bool Draggable;
     }
 }

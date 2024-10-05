@@ -53,5 +53,15 @@ Configs: {
 			Label: UI Width
 			Tooltip: The width of the UI
 		}
+
+		Draggable: {
+			Label: "[Experimental] Draggable"
+			Tooltip:
+				'''
+				Experimental feature!
+				Sometimes dragging doesnt stop when mouse released.
+				High FPS Support might imporve the situation.
+				'''
+		}
 	}
 }

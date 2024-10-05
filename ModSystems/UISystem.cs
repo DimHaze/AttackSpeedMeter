@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -73,10 +75,12 @@ namespace AttackSpeedMeter.ModSystems
         {
             if (IsMeterClosed())
             {
+                SoundEngine.PlaySound(SoundID.MenuOpen);
                 OpenMeter();
             }
             else
             {
+                SoundEngine.PlaySound(SoundID.MenuClose);
                 CloseMeter();
             }
         }
