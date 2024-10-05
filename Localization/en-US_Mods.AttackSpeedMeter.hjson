@@ -25,7 +25,7 @@ UITips: {
 	}
 
 	UseAnimation: {
-		StatusTemplate: "[PREV] ← Animation: [TIME] → [NEXT]"
+		StatusTemplate: "[c/[COLORPREV]:[PREV] ←] [c/[COLORCURRENT]:Animation: [TIME]] [c/[COLORNEXT]:→ [NEXT]]"
 		ExtraMultiplierTemplate: Extra multiplier:player[PLAYER] item[ITEM]
 	}
 
@@ -63,13 +63,17 @@ Configs: {
 		}
 
 		Draggable: {
-			Label: "[Experimental] Draggable"
+			Label: Draggable
 			Tooltip:
 				'''
-				Experimental feature! Not stable on machines with 60+ fps.
-				Sometimes dragging doesnt stop when mouse released.
-				High FPS Support will imporve the situation.
+				Determines whether you can drag the panel
+				Click and hold mouse left to drag
 				'''
+		}
+
+		UseColor: {
+			Label: Use Color
+			Tooltip: ""
 		}
 	}
 }

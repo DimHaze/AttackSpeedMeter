@@ -33,27 +33,6 @@ namespace AttackSpeedMeter.UI
             childIndex = 0;
             base.OnInitialize();
         }
-        public override void LeftMouseDown(UIMouseEvent evt)
-        {
-            if (!_dragging && ModContent.GetInstance<ASMConfigs>().Draggable)
-            {
-                _dragging = true;
-                _xBias = evt.MousePosition.X - HAlign*Main.screenWidth;
-                _yBias = evt.MousePosition.Y - VAlign*Main.screenHeight;
-                SoundEngine.PlaySound(SoundID.MenuTick);
-            }
-            base.LeftMouseDown(evt);
-        }
-        public override void LeftMouseUp(UIMouseEvent evt)
-        {
-            if (_dragging)
-            {
-                _dragging = false;
-                SoundEngine.PlaySound(SoundID.MenuTick);
-            }
-            //Main.NewText("Mouse Up");
-            base.LeftMouseUp(evt);
-        }
         public void AddText(string text)
         {
             UIText temp = new(text)
@@ -66,17 +45,30 @@ namespace AttackSpeedMeter.UI
         }
         public override void Update(GameTime gameTime)
         {
-            if (_dragging && !IsMouseHovering)
+            if (ModContent.GetInstance<ASMConfigs>().Draggable)
             {
-                _dragging = false;
-                SoundEngine.PlaySound(SoundID.MenuTick);
-            }
-            if (_dragging && ModContent.GetInstance<ASMConfigs>().Draggable)
-            {
-                float _HAlign = ((float)Main.mouseX - _xBias) / Main.screenWidth;
-                float _VAlign = ((float)Main.mouseY - _yBias) / Main.screenHeight;
-                ModContent.GetInstance<ASMConfigs>().HPosition = _HAlign;
-                ModContent.GetInstance<ASMConfigs>().VPosition = _VAlign;
+                if(!_dragging && Main.mouseLeft)
+                {
+                    _dragging = true;
+                    _xBias = Main.mouseX - HAlign * Main.screenWidth;
+                    _yBias = Main.mouseY - VAlign * Main.screenHeight;
+                    SoundEngine.PlaySound(SoundID.MenuTick);
+                }
+                if (_dragging )
+                {
+                    if(!IsMouseHovering || Main.mouseLeftRelease)
+                    {
+                        _dragging = false;
+                        SoundEngine.PlaySound(SoundID.MenuTick);
+                    }
+                    else
+                    {
+                        float _HAlign = ((float)Main.mouseX - _xBias) / Main.screenWidth;
+                        float _VAlign = ((float)Main.mouseY - _yBias) / Main.screenHeight;
+                        ModContent.GetInstance<ASMConfigs>().HPosition = _HAlign;
+                        ModContent.GetInstance<ASMConfigs>().VPosition = _VAlign;
+                    }
+                }
             }
             HAlign = ModContent.GetInstance<ASMConfigs>().HPosition;
             VAlign = ModContent.GetInstance<ASMConfigs>().VPosition;

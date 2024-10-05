@@ -18,6 +18,8 @@ namespace AttackSpeedMeter.ModConfigs
         [Range(300, 600)]
         [DefaultValue(400)]
         public int Width;
+        [DefaultValue(true)]
+        public bool UseColor;
         [DefaultValue(false)]
         public bool Draggable;
     }

@@ -25,7 +25,7 @@ UITips: {
 	}
 
 	UseAnimation: {
-		StatusTemplate: "[PREV] ← 当前使用动画: [TIME] → [NEXT]"
+		StatusTemplate: "[c/[COLORPREV]:[PREV] ←] [c/[COLORCURRENT]:当前使用动画: [TIME]] [c/[COLORNEXT]:→ [NEXT]]"
 		ExtraMultiplierTemplate: 额外倍率:玩家[PLAYER] 物品[ITEM]
 	}
 
@@ -63,13 +63,17 @@ Configs: {
 		}
 
 		Draggable: {
-			Label: 【实验性】UI是否可被拖动
+			Label: UI拖动
 			Tooltip:
 				'''
-				实验性功能!在60FPS以上的机器上可能不稳定!
-				偶尔会出现松开鼠标,但没有停止拖动的情况.
-				安装High FPS Support后,问题基本解除.
+				决定是否允许拖动UI
+				按住左键拖动
 				'''
+		}
+
+		UseColor: {
+			// Label: Use Color
+			// Tooltip: ""
 		}
 	}
 }

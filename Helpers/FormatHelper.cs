@@ -12,7 +12,7 @@ namespace AttackSpeedMeter.Helpers
     internal class FormatHelper
     {
         public static string ColorToString(Color color) =>
-            color.R.ToString("X").ToLower() + color.G.ToString("X").ToLower() + color.B.ToString("X").ToLower();
+            $"{color.R:X2}{color.G:X2}{color.B:X2}";
         public static float SafeFloor(float input)
         {
             if (Math.Ceiling(input) - input < 0.01f)
