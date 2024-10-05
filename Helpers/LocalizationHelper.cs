@@ -25,19 +25,20 @@ namespace AttackSpeedMeter.Helpers
                             .Replace("[TIME]", useTime.ToString());
         }
         public static String GetStatus(bool IsUseAnimation, int time, float prev, float? next,
-                            Color? prevColor = null, Color? nextColor = null)
+                            string? prevColor = null, string? currentColor = null, string? nextColor = null)
         {
-            prevColor ??= Color.White;
-            nextColor ??= Color.White;
+            prevColor ??= "ffffff";
+            currentColor ??= "ffffff";
+            nextColor ??= "ffffff";
             string loc = IsUseAnimation ? "UseAnimation" : "UseTime";
             return Language.GetTextValue("Mods.AttackSpeedMeter.UITips." + loc + ".StatusTemplate")
                             .Replace("[TIME]", time.ToString())
-                            .Replace("[PREV]", ("[c/" + FormatHelper.ColorToString(prevColor.Value) + ":"
-                                + FormatHelper.PercentageFloorSigned(prev)
-                                + "]"))
-                            .Replace("[NEXT]", (next==null? "∞" : 
-                            ("[c/" + FormatHelper.ColorToString(nextColor.Value) + ":" +
-                            FormatHelper.PercentageFloorSigned(next.Value)) + "]"));
+                            .Replace("[PREV]", FormatHelper.PercentageFloorSigned(prev))
+                            .Replace("[NEXT]", next==null? "∞" : 
+                            FormatHelper.PercentageFloorSigned(next.Value))
+                            .Replace("[COLORPREV]", prevColor)
+                            .Replace("[COLORCURRENT]", currentColor)
+                            .Replace("[COLORNEXT]", nextColor);
         }
         public static String GetMultiplier(bool IsUseAnimation, float playerMult, float itemMult)
         {

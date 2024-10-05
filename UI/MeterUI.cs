@@ -80,22 +80,29 @@ namespace AttackSpeedMeter.UI
                 
                 if (needUseTime)
                 {
-                    Color? prevColor = null;
-                    Color? nextColor = null;
-                    // Insert your code of coloring here
-                    // Leave it null for white
-                    // Change the color for infinity in LocalizationHelper.cs
-                    
-                    // FOR DEBUG: Displays the color along side RGB value
-                    //mainPanel.AddText("[c/" + FormatHelper.ColorToString(prevColor.Value) + ":"+
-                    //                    FormatHelper.ColorToString(prevColor.Value)
-                    //                    +"]");
-                    mainPanel.AddText(LocalizationHelper.GetStatus(false, totalUseTime, prevUseTimeThreshold, nextUseTimeThreshold,prevColor,nextColor));
                     // extra multipliers
                     float itemMult = ItemLoader.UseTimeMultiplier(item, player)
                                      * (1 / ItemLoader.UseSpeedMultiplier(item, player));
                     float playerMult = PlayerLoader.UseTimeMultiplier(player, item)
                                        * (1 / PlayerLoader.UseSpeedMultiplier(player, item));
+                    string? prevColor = null;
+                    string? currentColor = null;
+                    string? nextColor = null;
+                    // Insert your code of coloring here
+                    // Leave it null for white
+                    // Change the color for infinity in LocalizationHelper.cs
+                    float assumedUseTimeForColor = item.useTime * itemMult * playerMult;
+                    float? p = prevUseTimeThreshold * (1f / 10000f);
+                    float? n = nextUseTimeThreshold * (1f / 10000f);
+                    prevColor = ColorHelper.GetColor(totalUseTime,assumedUseTimeForColor,p);
+                    currentColor = ColorHelper.GetColor(totalUseTime,assumedUseTimeForColor,attackSpeed);
+                    nextColor = ColorHelper.GetColor(totalUseTime-1,assumedUseTimeForColor,n);
+                    // FOR DEBUG: Displays the color along side RGB value
+                    // mainPanel.AddText(p.ToString());
+                    //mainPanel.AddText("[c/" + FormatHelper.ColorToString(prevColor.Value) + ":"+
+                    //                    FormatHelper.ColorToString(prevColor.Value)
+                    //                    +"]");
+                    mainPanel.AddText(LocalizationHelper.GetStatus(false, totalUseTime, prevUseTimeThreshold, nextUseTimeThreshold, prevColor, currentColor, nextColor));
                     if (Math.Abs(itemMult - 1) >= 1e-4f)
                     {
                         mainPanel.AddText(LocalizationHelper.GetMultiplier(false,1/playerMult,1 / itemMult));
@@ -116,17 +123,25 @@ namespace AttackSpeedMeter.UI
                 }
                 if (needAnimationTime)
                 {
-                    Color? prevColor = null;
-                    Color? nextColor = null;
-                    // Insert your code of coloring here
-                    // Leave it null for white
-                    // Change the color for infinity in LocalizationHelper.cs
-                    mainPanel.AddText(LocalizationHelper.GetStatus(true, totalAnimationTime, prevAnimationThreshold, nextAnimationThreshold,prevColor,nextColor));
                     // extra multipliers
                     float itemMult = ItemLoader.UseAnimationMultiplier(item, player)
                                      * (1 / ItemLoader.UseSpeedMultiplier(item, player));
                     float playerMult = PlayerLoader.UseAnimationMultiplier(player, item)
                                        * (1 / PlayerLoader.UseSpeedMultiplier(player, item));
+                    string? prevColor = null;
+                    string? currentColor = null;
+                    string? nextColor = null;
+                    // Insert your code of coloring here
+                    // Leave it null for white
+                    // Change the color for infinity in LocalizationHelper.cs
+                    float assumedUseAnimationTimeForColor = item.useAnimation * itemMult * playerMult;
+                    // the assumed use animation time if there is absolutely no rounding and no attack speed
+                    float? p = prevAnimationThreshold * (1f / 10000f);
+                    float? n = nextAnimationThreshold * (1f / 10000f);
+                    prevColor = ColorHelper.GetColor(totalAnimationTime,assumedUseAnimationTimeForColor,p);
+                    currentColor = ColorHelper.GetColor(totalAnimationTime,assumedUseAnimationTimeForColor,attackSpeed);
+                    nextColor = ColorHelper.GetColor(totalAnimationTime-1,assumedUseAnimationTimeForColor,n);
+                    mainPanel.AddText(LocalizationHelper.GetStatus(true, totalAnimationTime, prevAnimationThreshold, nextAnimationThreshold, prevColor, currentColor, nextColor));
                     if (Math.Abs(itemMult - 1) >= 1e-4f)
                     {
                         mainPanel.AddText(LocalizationHelper.GetMultiplier(true, 1 / playerMult, 1 / itemMult));
