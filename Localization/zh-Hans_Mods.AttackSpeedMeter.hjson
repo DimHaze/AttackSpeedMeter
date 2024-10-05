@@ -53,5 +53,15 @@ Configs: {
 			Label: 宽度
 			Tooltip: 攻速显示UI的宽度
 		}
+
+		Draggable: {
+			Label: 【实验性】UI是否可被拖动
+			Tooltip:
+				'''
+				实验性功能!不稳定!
+				偶尔会出现松开鼠标,但没有停止拖动的情况.
+				安装High FPS Support后可能会好转.
+				'''
+		}
 	}
 }
