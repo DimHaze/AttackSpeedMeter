@@ -20,7 +20,7 @@ UITips: {
 
 	UseTime: {
 		SimpleStatusTemplate: Use time: [TIME]
-		StatusTemplate: "[PREV] ← Use time: [TIME] → [NEXT]"
+		StatusTemplate: "[c/[COLORPREV]:[PREV] ←] [c/[COLORCURRENT]:Use Time: [TIME]] [c/[COLORNEXT]:→ [NEXT]]"
 		ExtraMultiplierTemplate: Extra multiplier:player[PLAYER] item[ITEM]
 	}
 
