@@ -32,8 +32,8 @@ UITips: {
 	Legend: {
 		0: Legends TH. for threshold
 		1: - Current Class: Attack Speed Buff -
-		2: Prev. "TH. ← Current use time → Next TH."
-		3: Prev. "TH. ← Current use animation → Next TH."
+		2: Prev. TH. ← Current use time → Next TH.
+		3: Prev. TH. ← Current use animation → Next TH.
 		4: Extra multiplier: player mult.  item mult.
 		5: Info. above are shown only when necessary
 		6: Hold a weapon to activate attack speed meter!

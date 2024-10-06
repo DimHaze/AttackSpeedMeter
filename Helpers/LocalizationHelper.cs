@@ -14,15 +14,12 @@ namespace AttackSpeedMeter.Helpers
 {
     public class LocalizationHelper
     {
-        private static List<string> _legends = [];
         public static List<String> GetLegends()
         {
-            if (_legends.Count == 0)
+            List<string> _legends = [];
+            for (int i = 0; i < 7; i++)
             {
-                for (int i = 0; i < 7; i++)
-                {
-                    _legends.Add(Language.GetTextValue("Mods.AttackSpeedMeter.UITips.Legend." + i.ToString()));
-                }
+                 _legends.Add(Language.GetTextValue("Mods.AttackSpeedMeter.UITips.Legend." + i.ToString()));
             }
             return _legends;
         }
