@@ -1,5 +1,7 @@
-有任何问题和建议，请在Issues提出或者直接QQ私聊我
+Leave your suggest on Issues
 
-TODO:
-- [ ] 加入颜色
-- [ ] Mod图标
+FAQ:
+- Please add support for XX mod!
+  - Just give me the mod name, class name and its own color
+- Add support for my language!
+  - You can do this on your own: fork this repo, make your own localization file, and PR to me
