@@ -1,4 +1,4 @@
-Leave your suggest on Issues
+Leave your suggestions in Issues
 
 FAQ:
 - Please add support for XX mod!
