@@ -83,8 +83,12 @@ Configs: {
 		}
 
 		UseColor: {
-			// Label: Use Color
-			// Tooltip: ""
+			Label: 使用颜色
+			Tooltip:
+				'''
+				是否用颜色区分攻速状态
+				绿色=实际攻速在同区间中较快，红色=实际攻速在同区间中较慢
+				'''
 		}
 	}
 }

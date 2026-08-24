@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace AttackSpeedMeter.ModSystems
@@ -178,11 +177,5 @@ namespace AttackSpeedMeter.ModSystems
                 return color;
             return GetFallbackColor(damageClass.FullName);
         }
-
-        /// <summary>
-        /// Whether this class has a dedicated header label (vanilla or tracked mod class).
-        /// </summary>
-        public static bool Contains(DamageClass damageClass)
-            => _classColors.ContainsKey(damageClass.FullName);
     }
 }

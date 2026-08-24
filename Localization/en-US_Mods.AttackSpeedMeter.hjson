@@ -82,7 +82,11 @@ Configs: {
 
 		UseColor: {
 			Label: Use Color
-			Tooltip: ""
+			Tooltip: 
+				'''
+				Whether to use colors to indecate attack speed
+				Green = fast attack speed from speed bonus, Red = slow attack speed
+				'''
 		}
 	}
 }
